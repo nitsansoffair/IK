@@ -10,7 +10,19 @@ Sources:
 Introduction to Information Retrieval (Manning et al., 2008)
 Modern Information Retrieval (R. Baeza-Yates, B. Ribeiro-Neto)
 
-Slide 2: Reinforcement Learning (RL) Overview
+Slide 2: Best Practices for Indexing
+Choose the Right Columns: Index columns frequently used in WHERE, JOIN, or ORDER BY clauses.
+Avoid Over-Indexing: Too many indexes can slow down INSERT, UPDATE, and DELETE operations.
+Use Composite Indexes: For queries involving multiple columns, composite indexes are more efficient.
+Monitor Index Usage: Regularly check which indexes are used and remove unused ones.
+
+Slide 3: Optimizing Index Performance
+Use Indexes on Selectivity Columns: Index highly selective columns (those with many unique values).
+Clustered vs Non-Clustered: Ensure the primary key is clustered; use non-clustered indexes for other queries.
+Keep Indexes Small: Use index types like B-trees or Hash indexes based on the query patterns.
+Index Maintenance: Regularly rebuild or reorganize indexes to avoid fragmentation.
+
+Slide 4: Reinforcement Learning (RL) Overview
 What is RL?: Reinforcement Learning is a machine learning paradigm where agents learn to make decisions by interacting with an environment and receiving feedback in the form of rewards or penalties.
 Key Concepts: Agent, environment, state, action, reward, policy.
 Applications: Robotics, gaming (AlphaGo), optimization tasks.
@@ -18,47 +30,47 @@ Sources:
 Reinforcement Learning: An Introduction by Richard S. Sutton and Andrew G. Barto
 Deep Reinforcement Learning Hands-On by Maxim Lapan
 
-Slide 3: Why RL for Indexing?
+Slide 5: Why RL for Indexing?
 Traditional Indexing: Common methods like hash-based, tree-based, and inverted indexes work on predefined heuristics.
 Limitations: These methods often fail to optimize dynamic query processing and storage efficiency, especially as the scale of data grows.
 RL Advantage: RL can learn dynamic indexing strategies that adapt based on query load, data distribution, and evolving user behavior.
 Sources:
 Marcus, R., & Papaemmanouil, O. (2020). Deep Reinforcement Learning for Join Order Enumeration. In Proceedings of the 2020 International Conference on Data Engineering (ICDE)
 
-Slide 4: The Paper: "Deep Reinforcement Learning for Join Order Enumeration"
+Slide 6: The Paper: "Deep Reinforcement Learning for Join Order Enumeration"
 Objective: The paper proposes a framework where RL is used to learn optimal ranking (indexing) policies for efficient data retrieval.
 Approach: Combining deep neural networks with RL to dynamically optimize the ranking of data items based on feedback from the retrieval system.
 Contribution: Introduces a new way of leveraging RL to adjust indexing strategies on-the-fly for improved performance.
 Source:
 Marcus, R., & Papaemmanouil, O. (2020). Deep Reinforcement Learning for Join Order Enumeration. In Proceedings of the 2020 International Conference on Data Engineering (ICDE)
 
-Slide 5: Key Concepts from the Paper
+Slide 7: Key Concepts from the Paper
 Indexing as a Ranking Problem: Instead of static indexing methods, view indexing as a dynamic ranking task where data items are ranked for fast retrieval.
 Action Space: The space of possible indexing strategies (e.g., which data points to prioritize in the index).
 Reward Function: A feedback signal based on query results, time complexity, or resource usage.
 Source:
 Marcus, R., & Papaemmanouil, O. (2020). Deep Reinforcement Learning for Join Order Enumeration. In Proceedings of the 2020 International Conference on Data Engineering (ICDE)
 
-Slide 6: RL Framework for Indexing
+Slide 8: RL Framework for Indexing
 State Representation: The system state could represent the current index structure, data distribution, and query load.
 Action Representation: Actions involve modifying the index by reordering, adding, or removing elements based on the query pattern.
 Reward Function: Rewards are given based on query efficiency, which can include time taken to retrieve, resource consumption, or user satisfaction metrics.
 
-Slide 7: Example: Optimizing a Query System
+Slide 9: Example: Optimizing a Query System
 Scenario: Assume an indexing system for a search engine.
 RL Task: The agent (RL model) can modify the index in response to real-time query results, learning the best strategies to rank the most relevant documents.
 Reward: Positive rewards for correct, fast results and negative rewards for long query processing times or irrelevant results.
 Source:
 Marcus, R., & Papaemmanouil, O. (2020). Deep Reinforcement Learning for Join Order Enumeration. In Proceedings of the 2020 International Conference on Data Engineering (ICDE)
 
-Slide 8: Advantages of Using RL for Indexing
+Slide 10: Advantages of Using RL for Indexing
 Dynamic Adaptation: Unlike traditional indexing techniques, RL-based indexing can adapt to changing data, user behavior, and evolving query patterns.
 Data-Driven Optimization: RL learns directly from data and interaction, improving indexing over time.
 Scalability: Suitable for large-scale datasets where traditional indexing fails to deliver optimal performance due to the volume or complexity of data.
 Source:
 Deep Reinforcement Learning for Information Retrieval: Fundamentals and Advances
 
-Slide 9: Challenges and Future Work
+Slide 11: Challenges and Future Work
 Challenge 1: The complexity of reward design, as the system needs to evaluate indexing strategies based on multiple factors (speed, accuracy, resource usage).
 Challenge 2: RL models require significant computational resources, which may be prohibitive for some systems.
 Future Work: Investigating more efficient algorithms for training RL agents and applying RL to distributed systems.
