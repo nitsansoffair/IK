@@ -2,7 +2,6 @@ import zipfile
 import torch
 
 from transformers import BertModel, BertTokenizer
-from tensorflow.keras.applications import ResNet50
 from G import analyze_videos_and_create_graph
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -24,9 +23,6 @@ if __name__ == '__main__':
     tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
     bert_model = BertModel.from_pretrained("bert-base-multilingual-cased")
 
-    # Initialize ResNet for image embeddings
-    resnet_model = ResNet50(weights='imagenet', include_top=False, pooling='avg')
-
     # Example: Analyze videos in the 'idialists' category and display the graph
     category_folder = "./datasets/idialists"
-    analyze_videos_and_create_graph(category_folder, bert_model, tokenizer, resnet_model)
+    analyze_videos_and_create_graph(category_folder, bert_model, tokenizer)
