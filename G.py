@@ -1,3 +1,4 @@
+import matplotlib
 import speech_recognition as sr
 import os
 import torch
@@ -6,6 +7,8 @@ import matplotlib.pyplot as plt
 
 from pydub import AudioSegment
 from sklearn.metrics.pairwise import cosine_similarity
+
+matplotlib.use('Agg')  # Use a backend that doesn't require a GUI
 
 # Function to extract audio from video
 def extract_audio_from_video(video_path, audio_path):
@@ -65,7 +68,7 @@ def create_video_graph(video_files, text_data):
     return G
 
 # Function to visualize the graph
-def visualize_graph(G):
+def visualize_graph(G, category):
     pos = nx.spring_layout(G)  # Layout for visualization
     weights = nx.get_edge_attributes(G, 'weight')
 
@@ -77,7 +80,8 @@ def visualize_graph(G):
 
     plt.title("Video Similarity Graph")
     plt.axis("off")
-    plt.show()
+
+    plt.savefig(f"./results/{category}.png")
 
 # Analyze all videos in a category folder and compute embeddings
 def analyze_videos_and_create_graph(category_folder, bert_model, tokenizer):
@@ -103,5 +107,7 @@ def analyze_videos_and_create_graph(category_folder, bert_model, tokenizer):
     # Create the graph based on the embeddings
     G = create_video_graph(video_files, text_data)
 
+    category = category_folder.split('/')[-1]
+
     # Visualize the graph
-    visualize_graph(G)
+    visualize_graph(G, category)
