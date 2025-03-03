@@ -1,0 +1,1 @@
+python ./main.py --category_type $1 --data_type $2

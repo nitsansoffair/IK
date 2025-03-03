@@ -1,3 +1,4 @@
+import argparse
 import zipfile
 import torch
 
@@ -15,14 +16,19 @@ def extract_zip():
         zip_ref.extractall(extract_path)
 
 if __name__ == '__main__':
-    # Paths to video folders
-    video_path = "/content/videos"
-    categories = ["idialists", "politicians"]
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--data_type", default="text", type=str)
+    parser.add_argument("--category_type", default="idialists", type=str)
+    args = parser.parse_args()
+
+    print(f"Category Type: {args.category_type}, Data Type: {args.data_type}")
 
     # Initialize BERT model and tokenizer for text embeddings (Hebrew)
     tokenizer = BertTokenizer.from_pretrained("bert-base-multilingual-cased")
     bert_model = BertModel.from_pretrained("bert-base-multilingual-cased")
 
     # Example: Analyze videos in the 'idialists' category and display the graph
-    category_folder = "./datasets/idialists"
-    analyze_videos_and_create_graph(category_folder, bert_model, tokenizer)
+    category_folder = f"./datasets/{args.category_type}"
+
+    analyze_videos_and_create_graph(args, category_folder, bert_model, tokenizer)
