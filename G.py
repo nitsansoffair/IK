@@ -38,7 +38,7 @@ def extract_text_embedding(bert_model, tokenizer, text):
 
 # Function to compute the similarity between two embeddings (cosine similarity)
 def compute_similarity(embedding1, embedding2):
-    return cosine_similarity([embedding1], [embedding2])[0][0]
+    return cosine_similarity(embedding1, embedding2)[0][0]
 
 # Create the graph based on similarities
 def create_video_graph(video_files, text_data):
