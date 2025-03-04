@@ -1,1 +1,2 @@
-python ./main.py --category_type $1 --data_type $2
+python ./main.py --category_type idialists --data_type multimodal
+python ./main.py --category_type politicians --data_type multimodal

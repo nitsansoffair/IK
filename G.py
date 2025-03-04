@@ -54,7 +54,7 @@ def compute_similarity(embedding1, embedding2):
     return cosine_similarity(embedding1, embedding2)[0][0]
 
 # Create the graph based on similarities
-def create_video_graph(video_files, data):
+def create_video_graph(video_files, data_audio, data_text, args):
     G = nx.Graph()
 
     # Add nodes
@@ -67,8 +67,10 @@ def create_video_graph(video_files, data):
 
         for j, video2 in enumerate(video_files):
             if i < j:  # Only compute for pairs
-                similarity = compute_similarity(data[video1], data[video2])
-                similarity = round(similarity, 1)
+                sim_audio = compute_similarity(data_audio[video1], data_audio[video2]) if args.data_type == "audio" or args.data_type == "multimodal" else 1
+                sim_text = compute_similarity(data_text[video1], data_text[video2]) if args.data_type == "text" or args.data_type == "multimodal" else 1
+
+                similarity = round((sim_audio + sim_text) / 2, 1)
 
                 if similarity > 0.5:  # Only add edges for a significant similarity
                     G.add_edge(video1, video2, weight=similarity)
@@ -92,7 +94,9 @@ def visualize_graph(G, args):
 # Analyze all videos in a category folder and compute embeddings
 def analyze_videos_and_create_graph(args, category_folder, bert_model, tokenizer):
     video_files = [f for f in os.listdir(category_folder) if f.endswith(".mp4")]
-    data = {}
+
+    data_audio = {}
+    data_text = {}
 
     index = 0
 
@@ -109,13 +113,19 @@ def analyze_videos_and_create_graph(args, category_folder, bert_model, tokenizer
         if args.data_type == "text":
             # Extract text (from the video transcription, can use pre-existing code)
             transcription = transcribe_audio(video_path.replace(".mp4", ".wav"))  # assuming audio extraction is done
-            data[video_file] = extract_text_embedding(bert_model, tokenizer, transcription)
-        else:
+            data_text[video_file] = extract_text_embedding(bert_model, tokenizer, transcription)
+        elif args.data_type == "audio":
             # Extract audio embedding
-            data[video_file] = extract_audio_embedding(audio_path)
+            data_audio[video_file] = extract_audio_embedding(audio_path)
+        else:
+            transcription = transcribe_audio(video_path.replace(".mp4", ".wav"))  # assuming audio extraction is done
+            data_text[video_file] = extract_text_embedding(bert_model, tokenizer, transcription)
+
+            # Extract audio embedding
+            data_audio[video_file] = extract_audio_embedding(audio_path)
 
     # Create the graph based on the embeddings
-    G = create_video_graph(video_files, data)
+    G = create_video_graph(video_files, data_audio, data_text, args)
 
     # Visualize the graph
     visualize_graph(G, args)
