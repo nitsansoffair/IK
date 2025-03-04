@@ -42,37 +42,37 @@ Our method consists of three main stages:
 
 #### **1\. Data Preprocessing and Feature Extraction**
 
-1. **Text Embeddings**: Speech transcripts are processed using a pre-trained LM (e.g., BERT) to extract contextualized textual embeddings that capture semantic meaning (Devlin et al., 2019).  
+1. **Text Embeddings**: Speech transcripts are processed using a pre-trained LM (BERT) to extract contextualized textual embeddings that capture semantic meaning (Devlin et al., 2019).  
 2. **Audio Embeddings**: I extract MFCCs and process them using a deep speaker embedding model (e.g., x-vectors) to encode vocal characteristics (Snyder et al., 2018).
 
 #### **2\. Graph Construction**
 
 1. Each video is represented as a node.  
-2. Edge weights between nodes are determined using a **similarity function** that integrates text and audio embeddings. We compute cosine similarity between embeddings for each modality and combine them using a weighted sum (Kipf & Welling, 2017).
+2. Edge weights between nodes are determined using a **similarity function** that integrates text and audio embeddings. I compute cosine similarity between embeddings for each modality and combine them using a weighted sum (Kipf & Welling, 2017).
 
 #### **3\. Graph Analysis and Visualization**
 
-1. I apply community detection algorithms (e.g., Louvain) to identify speaker clusters (Blondel et al., 2008).  
-2. Centrality measures, such as PageRank are used to highlight influential speakers (Brin & Page, 1998).  
+1. I apply community detection algorithms (Louvain) to identify speaker clusters (Blondel et al., 2008).  
+2. Centrality measures (PageRank) are used to highlight influential speakers (Brin & Page, 1998).  
 3. The graph is visualized using force-directed layouts to reveal speaker relationships (Fruchterman & Reingold, 1991).
 
 **Experimental Section**
 
 ### **Dataset Description**
 
-For my experiments, I used a dataset consisting of Knesset video recordings from the "Melia" archive. The videos were manually categorized into two groups: (1) **ideologists** and (2) **politicians**. The ideologists category contains individuals with strong ideological positions, typically associated with opposition parties, while the politicians category includes government officials, such as those from the ruling Likud party and other major political figures. Each video in the dataset has a duration of approximately 3 minutes. In total, we collected 26 videos.
+For my experiments, I used a dataset consisting of Knesset video recordings from the "Melia" archive. The videos were manually categorized into two groups: (1) **ideologists** and (2) **politicians**. The ideologists category contains individuals with strong ideological positions, typically associated with opposition parties, while the politicians category includes government officials, such as those from the ruling Likud party and other major political figures. Each video in the dataset has a duration of approximately 3 minutes. In total, I collected 26 videos.
 
 ### **Experiments**
 
-The goal of our experiments was to construct similarity graphs for both the ideologists and politicians categories, based on **different similarity functions**.
+The goal of my experiments was to construct similarity graphs for both the ideologists and politicians categories, based on **different similarity functions**.
 
-1. **Text Embedding-Based Similarity**: This approach leverages semantic representations of speech transcripts using a pretrained LM, such as BERT, to generate embeddings. We calculate cosine similarity between the embeddings of each video pair to create the similarity graph.
+1. **Text Embedding-Based Similarity**: Leverages semantic representations of speech transcripts using a pretrained LM (BERT), to generate embeddings. I calculate cosine similarity between the embeddings of each video pair to create the similarity graph.
 
-2. **Audio Embedding-Based Similarity**: I extract vocal embeddings using speaker models (e.g., x-vectors) to represent the audio characteristics of each video. Cosine similarity between the audio embeddings is used to generate the similarity graph.
+2. **Audio Embedding-Based Similarity**: I extract vocal embeddings using speaker models (x-vectors) to represent the audio characteristics of each video. Cosine similarity between the audio embeddings is used to generate the similarity graph.
 
-3. **Multimodal Embedding-Based Similarity**: This approach combines the text and audio embeddings by calculating cosine similarity between two modalities and integrating them into a unified similarity function.
+3. **Multimodal Embedding-Based Similarity**: Combines the text and audio embeddings by calculating cosine similarity between two modalities and integrating them into a unified similarity function.
 
-For each experiment, we computed similarity graphs separately for the ideologists and politicians categories, and for each type of similarity function.
+For each experiment, I computed similarity graphs separately for the ideologists and politicians categories, and for each type of similarity function.
 
 ### **Results**
 
