@@ -29,6 +29,6 @@ if __name__ == '__main__':
     bert_model = BertModel.from_pretrained("bert-base-multilingual-cased")
 
     # Example: Analyze videos in the 'idialists' category and display the graph
-    category_folder = f"./datasets/{args.category_type}"
+    category_folder = f"./datasets/vaadot/{args.category_type}"
 
     analyze_videos_and_create_graph(args, category_folder, bert_model, tokenizer)
